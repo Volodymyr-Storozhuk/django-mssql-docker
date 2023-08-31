@@ -1,2 +1,2 @@
 # django-mssql-docker
-django + mssql in docker
+From django access to Microsoft SQL server in docker
