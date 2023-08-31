@@ -8,9 +8,6 @@ ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
 
 RUN apt-get update && \
     apt-get install -y gnupg2 curl 
-    # cron && \
-    # crontab -l | { cat; echo "*/1 * * * * /usr/src/scripts/clearsessions.sh /var/log/cron"; } | crontab - && \
-    # service cron start
 
 # Add Microsoft SQL Server driver
 RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -  && \
