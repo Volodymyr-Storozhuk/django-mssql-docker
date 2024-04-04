@@ -25,14 +25,20 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 try:
-    SECRET_KEY = os.environ['SECRET_KEY']
+    SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
 except KeyError as err:
     raise KeyError(err)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '192.168.1.19']
+if os.environ.get('DJANGO_DEBUG') == 'True':
+    DEBUG = (os.environ.get('DJANGO_DEBUG') == 'True')
+else:
+    DEBUG = (os.environ.get('DJANGO_DEBUG') != 'False')
+
+
+ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS').split(' ')
 
 
 # Application definition
@@ -93,11 +99,19 @@ DATABASES = {
         "PASSWORD": os.environ['MSSQL_PASSWORD'],
         "HOST": os.environ['MSSQL_HOST'],
         "PORT": os.environ['MSSQL_PORT'],
+        # MSODBC Driver v.17
+        # "OPTIONS": {"driver": "ODBC Driver 17 for SQL Server", },
         # "OPTIONS": {"driver": os.environ['MSSQL_DRIVER'], },
+
+        # MSODBC Driver v.18
         'OPTIONS': {
-            'driver': os.environ['MSSQL_DRIVER'],
-            'extra_params': os.environ['MSSQL_EXTRAPARAMS'],
+            'driver': "ODBC Driver 18 for SQL Server",
+            'extra_params': "Encrypt=no;TrustServerCertificate=yes",
         },
+        # 'OPTIONS': {
+        #     'driver': os.environ['MSSQL_DRIVER'],
+        #     'extra_params': os.environ['MSSQL_EXTRAPARAMS'],
+        # },
     },
 }
 
