@@ -9,11 +9,17 @@ ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
 RUN apt-get update && \
     apt-get install -y gnupg2 curl 
 
-# Add Microsoft SQL Server driver
-RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -  && \
-    curl https://packages.microsoft.com/config/debian/11/prod.list > /etc/apt/sources.list.d/mssql-release.list
+# Add Microsoft SQL Server ODBC Driver 17 driver
+# RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -  && \
+#     curl https://packages.microsoft.com/config/debian/11/prod.list > /etc/apt/sources.list.d/mssql-release.list
+# RUN apt-get update && \
+#     ACCEPT_EULA=Y apt-get install -y msodbcsql17 unixodbc-dev libgssapi-krb5-2
+
+# Add Microsoft SQL Server ODBC Driver 18 driver
+RUN curl https://packages.microsoft.com/keys/microsoft.asc | tee /etc/apt/trusted.gpg.d/microsoft.asc  && \
+    curl https://packages.microsoft.com/config/debian/11/prod.list | tee /etc/apt/sources.list.d/mssql-release.list
 RUN apt-get update && \
-    ACCEPT_EULA=Y apt-get install -y msodbcsql17 unixodbc-dev libgssapi-krb5-2
+    ACCEPT_EULA=Y apt-get install -y msodbcsql18 unixodbc-dev libgssapi-krb5-2
 
 # users uid gid
 ARG UID=1000

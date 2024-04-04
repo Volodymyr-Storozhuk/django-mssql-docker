@@ -32,7 +32,7 @@ except KeyError as err:
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '192.168.1.15']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '192.168.1.19']
 
 
 # Application definition
@@ -93,7 +93,11 @@ DATABASES = {
         "PASSWORD": os.environ['MSSQL_PASSWORD'],
         "HOST": os.environ['MSSQL_HOST'],
         "PORT": os.environ['MSSQL_PORT'],
-        "OPTIONS": {"driver": "ODBC Driver 17 for SQL Server", },
+        # "OPTIONS": {"driver": os.environ['MSSQL_DRIVER'], },
+        'OPTIONS': {
+            'driver': os.environ['MSSQL_DRIVER'],
+            'extra_params': os.environ['MSSQL_EXTRAPARAMS'],
+        },
     },
 }
 
