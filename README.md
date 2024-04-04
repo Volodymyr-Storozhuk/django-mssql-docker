@@ -2,7 +2,7 @@
 From django access to Microsoft SQL server in docker.
 
 ## Init.
-Create a new .env file as in the .env.example example and fill it with the connection parameters to the MSSQL server. Select the desired MSSQL Server connection driver, version 17 or 18 by editing the settings:
+Create a new `.env` file as in the `.env.example` example and fill it with the connection parameters to the MSSQL server. Select the desired MSSQL Server connection driver, version 17 or 18 by editing the `settings.py` section `DATABASES`:
 
 for 17 version driver
 ```
@@ -18,7 +18,7 @@ for 18 version driver
         },
 ```
 
-and Dockerfile:
+and `Dockerfile`:
 
 for 17 version driver
 ```
@@ -43,5 +43,7 @@ $ docker-compose build
 $ docker-compose up -d
 ```
 
+## Go.
+http://localhost:8000
 
-
+You should see technical information about your MSSQL Server.
